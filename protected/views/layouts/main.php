@@ -28,12 +28,12 @@
 
 	<div id="mainmenu">
 		<?php $this->widget('zii.widgets.CMenu',array(
-			'items'=>array( // TODO:待优化
-				array('label'=>'首页', 'url'=>array('/site/index')),
-				array('label'=>'关于我们', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'联系我们', 'url'=>array('/site/contact')),
-				array('label'=>'登录', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'登出 ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+			'items'=>array(
+				array('label'=>Yii::t('common', 'home'), 'url'=>array('/site/index')),
+				array('label'=>Yii::t('common', 'about'), 'url'=>array('/site/page', 'view'=>'about')),
+				array('label'=>Yii::t('common', 'contact'), 'url'=>array('/site/contact')),
+				array('label'=>Yii::t('common', 'login'), 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+				array('label'=>Yii::t('common', 'logout').' ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
 		)); ?>
 	</div><!-- mainmenu -->

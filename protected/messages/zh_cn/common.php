@@ -103,5 +103,27 @@ return array(
     'View Studentscore' => '查看学院成绩',
     'Create Studentscore' => '创建学员成绩信息',
     
+    'home' => '首页',
+    'about' => '关于我们',
+    'contact' => '联系我们',
+    'login' => '登录',
+    'logout' => '登出',
+    
+    'Name' => '姓名<span class="required">*</span>',
+    'Email' => '邮箱<span class="required">*</span>',
+    'Subject' => '主题<span class="required">*</span>', 
+    'Body' => '正文<span class="required">*</span>',
+    
+    'Anda driver school description' => '安达驾校是莱芜市中顶尖的驾校，驾考通过率达95%以上。',
+    'If you have questions, contact us.' => '如果您有什么问题，请选择以下方式联系我们，谢谢。',
+    'enter the letters' => '请填写图片显示的字母。<br/>字母不区分大小写。',
+    
+    'Submit' => '提交',
+    'Get verifyCode' => '重新获得',
+    'login tip' => '请填写用户名和密码登录：',
+    'login username' => '登录名<span class="required">*</span>',
+    'login password' => '密码<span class="required">*</span>',
+    
+    
 );
 ?>

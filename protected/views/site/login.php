@@ -11,7 +11,7 @@ $this->breadcrumbs=array(
 
 <h1>Login</h1>
 
-<p>Please fill out the following form with your login credentials:</p>
+<p><?php echo Yii::t('common', 'login tip') ?></p>
 
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -25,13 +25,13 @@ $this->breadcrumbs=array(
 	<p class="note"><?php echo Yii::t('yii','Fields with') ?> <span class="required">*</span><?php echo Yii::t('yii','are required.') ?></p>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'username'); ?>
+		<?php echo $form->labelEx($model,Yii::t('common','login username')); ?>
 		<?php echo $form->textField($model,'username'); ?>
 		<?php echo $form->error($model,'username'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'password'); ?>
+		<?php echo $form->labelEx($model,Yii::t('common','login password')); ?>
 		<?php echo $form->passwordField($model,'password'); ?>
 		<?php echo $form->error($model,'password'); ?>
 
@@ -44,7 +44,7 @@ $this->breadcrumbs=array(
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Login'); ?>
+		<?php echo CHtml::submitButton(Yii::t('common', 'login')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

@@ -17,5 +17,7 @@ return array(
     'use comparison operatorsearch values' => '你可以使用比较操作符（<b>></b>,<b>>=</b>,<b><</b>,<b><=</b>,<b><></b>,<b>=</b>）来填入搜索条件，获取你想要查询的内容',
     'You are not authorized to perform this action.' => '您没有相关操作权限。',
     'Unable to resolve the request "{route}".' => '不能解析请求的页面。',
+    'Get a new code' => '重新获取',
+
 );
 ?>

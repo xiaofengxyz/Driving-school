@@ -63,10 +63,10 @@ return array(
 		// uncomment the following to use a MySQL database
 		
 		'db'=>array(
-			'connectionString' => 'mysql:host=127.0.0.1;dbname=driverschool',
+			'connectionString' => 'mysql:host=182.18.22.197;port=3306;dbname=zjwdb_135916',
 			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => '000000',
+			'username' => 'zjwdb_135916',
+			'password' => 'sqlbbf1110',
 			'charset' => 'utf8',
 		),
 		
