@@ -90,6 +90,7 @@ return array(
     'Delete Student' => '删除学员信息',
     'Manage Students' => '管理学员信息',
     'Backup StudentInfo' => '备份学员信息',
+    'View Student' => '查看学员信息',
     
     
     'Admins Home' => '管理员首页',
@@ -100,8 +101,9 @@ return array(
     'View Admins' => '查看管理员',
     'Manage Admins' => '管理管理员信息',
     
-    'View Studentscore' => '查看学院成绩',
-    'Create Studentscore' => '创建学员成绩信息',
+    'View Studentscore' => '查看学员成绩',
+    'Create Studentscore' => '创建学员成绩',
+    'Update Studentscore' => '修改学员成绩',
     
     'home' => '首页',
     'about' => '关于我们',
@@ -124,6 +126,9 @@ return array(
     'login username' => '登录名<span class="required">*</span>',
     'login password' => '密码<span class="required">*</span>',
     
-    
+    'Save' => '保存',
+    'Create' => '创建',
+    'date_form' => '<span class="required">（格式必须是：0000-00-00）</span>',
+     
 );
 ?>

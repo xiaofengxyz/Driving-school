@@ -15,11 +15,11 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
+<!--	<div class="row">
 		<?php echo $form->labelEx($model,'personal_id'); ?>
 		<?php echo $form->textField($model,'personal_id',array('size'=>60,'maxlength'=>128)); ?>
 		<?php echo $form->error($model,'personal_id'); ?>
-	</div>
+	</div>-->
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'scoret'); ?>
@@ -46,8 +46,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'qualified_date'); ?>
-		<?php echo $form->textField($model,'qualified_date'); ?>
+		<?php echo $form->labelEx($model,'qualified_date');?>
+		<?php echo $form->textField($model,'qualified_date'); echo Yii::t('common','date_form'); ?>
 		<?php echo $form->error($model,'qualified_date'); ?>
 	</div>
 

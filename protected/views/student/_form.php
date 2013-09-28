@@ -65,13 +65,13 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'enroll_date'); ?>
-		<?php echo $form->textField($model,'enroll_date'); ?>
+		<?php echo $form->textField($model,'enroll_date'); echo Yii::t('common','date_form'); ?>
 		<?php echo $form->error($model,'enroll_date'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'record_date'); ?>
-		<?php echo $form->textField($model,'record_date'); ?>
+		<?php echo $form->textField($model,'record_date'); echo Yii::t('common','date_form'); ?>
 		<?php echo $form->error($model,'record_date'); ?>
 	</div>
 
@@ -83,7 +83,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'pickup_date'); ?>
-		<?php echo $form->textField($model,'pickup_date'); ?>
+		<?php echo $form->textField($model,'pickup_date'); echo Yii::t('common','date_form'); ?>
 		<?php echo $form->error($model,'pickup_date'); ?>
 	</div>
 
@@ -95,7 +95,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'submit_date'); ?>
-		<?php echo $form->textField($model,'submit_date'); ?>
+		<?php echo $form->textField($model,'submit_date'); echo Yii::t('common','date_form'); ?>
 		<?php echo $form->error($model,'submit_date'); ?>
 	</div>
 

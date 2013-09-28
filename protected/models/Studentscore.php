@@ -41,7 +41,7 @@ class Studentscore extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('personal_id, course, times,', 'required'),
+			array('course, times,', 'required'),
 			array('score, course, times, is_qualified', 'numerical', 'integerOnly'=>true),
 			array('personal_id', 'length', 'max'=>18, 'min'=>18),
 			// The following rule is used by search().

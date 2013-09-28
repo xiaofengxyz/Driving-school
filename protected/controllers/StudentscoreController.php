@@ -94,6 +94,8 @@ class StudentscoreController extends Controller
             if(isset($model_has)) {
                 throw new CHttpException(404,'The score has existed.');
             }
+            $model_student = Student::model()->findByPk($id);
+            $model['personal_id'] = $model_student->personal_id;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->record_id));
 		}
@@ -125,6 +127,8 @@ class StudentscoreController extends Controller
             $model->attributes = $model_data->attributes;
 //            if ($model->save())
 //                    $this->redirect(array('view','id'=>$id));
+            $model_student = Student::model()->findByPk($id);
+            $model['personal_id'] = $model_student->personal_id;
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->record_id));
 		}
@@ -254,8 +258,6 @@ class StudentscoreController extends Controller
         $backup_info = $this->createUrl('backup/BackupToExel');
         if (Admin::model()->isSuperAdmin()) {
             $menu_content = array(
-
-                array('label'=>Yii::t('common','Backup StudentInfo'), 'url'=>$backup_info),
                 
                 array('label'=>Yii::t('common','List Admins'), 'url'=>$list_admin),
                 array('label'=>Yii::t('common','Create Admin'), 'url'=>$create_admin),
