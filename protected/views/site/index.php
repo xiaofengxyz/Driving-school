@@ -19,7 +19,7 @@ $this->menu= $this->getMenu();
 <p></p>
 <ul>
 <!--	<li>请点击右侧进行相应操作</li>-->
-	<li>需要帮助请点击导航栏->‘联系我们’</li>
+	<!--<li>需要帮助请点击导航栏->‘联系我们’</li>-->
 </ul>
 <!--<p>You may change the content of this page by modifying the following two files:</p>
 <ul>

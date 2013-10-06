@@ -56,12 +56,16 @@ class StudentController extends Controller
         $sex = array(0 =>Yii::t('common','male'), 1 => Yii::t('common','female'));
         $authortity = array(0 => Yii::t('common','superadmin'), 1 => Yii::t('common','writeDeleteadmin'), 2 => Yii::t('common','writeadmin'), 3 => Yii::t('common','readonlyadmin'));
         $is_yesno = array(0 =>Yii::t('common','no'), 1 => Yii::t('common','yes'));
+        $car_type = array(0 => '', 1 =>Yii::t('common','A1'), 2 => Yii::t('common','B1'), 3 => Yii::t('common','C1'));
+        
         foreach ($model as $key => $value) {
             if ($key == 'sex' && is_numeric($value)) {
                 $model_data->$key = $sex[$value];
             } elseif ($key == 'authority' && is_numeric($value)) {
                 $model_data->$key = $authortity[$value];
-            } elseif ($this->filterView($key)) {
+            } elseif (($key == 'apply_car_type' || $key == 'origin_car_type') && is_numeric($value)) {
+                $model_data->$key = $car_type[$value];
+            }elseif ($this->filterView($key)) {
                 $model_data->$key = $is_yesno[$value];
             } else {
                 $model_data->$key = $value;
@@ -98,9 +102,10 @@ class StudentController extends Controller
                 throw new CHttpException(404,'The peopele has existed.');
             }  
             $model_has = Student::model()->findByAttributes(array('stdudent_id'=>$model->stdudent_id));
-            if(isset($model_has)) {
+            if($model->stdudent_id != '' && isset($model_has)) {
                 throw new CHttpException(404,'The student id has existed.');
             } 
+//            $model->enroll_date = date('Y-m-d',time());
 			if($model->save()) {
                 //不再同时创建成绩单
 //                $model_student_score->record_id = $model->record_id;
@@ -242,6 +247,8 @@ class StudentController extends Controller
         $create_admin = $this->createUrl('admin/create');
         $manage_admin = $this->createUrl('admin/admin');
         $backup_info = $this->createUrl('backup/BackupToExel');
+        $update_sites = $this->createUrl('site/update');
+        $view_sites = $this->createUrl('site/view');
 
         if (Admin::model()->isSuperAdmin()) {
             $menu_content = array(                   
@@ -256,6 +263,9 @@ class StudentController extends Controller
                 array('label'=>Yii::t('common','List Admins'), 'url'=>$list_admin),
                 array('label'=>Yii::t('common','Create Admin'), 'url'=>$create_admin),
                 array('label'=>Yii::t('common','Manage Admins'), 'url'=>$manage_admin),
+                
+                array('label'=>Yii::t('common','Update Site Desc'), 'url'=>$update_sites),
+                array('label'=>Yii::t('common','View Site Desc'), 'url'=>$view_sites),
             ); 
         }elseif (Admin::model()->isWDAdmin()) {
             $menu_content = array(
@@ -283,6 +293,8 @@ class StudentController extends Controller
         $create_admin = $this->createUrl('admin/create');
         $manage_admin = $this->createUrl('admin/admin');
         $backup_info = $this->createUrl('backup/BackupToExel');
+        $update_sites = $this->createUrl('site/update');
+        $view_sites = $this->createUrl('site/view');
 
         if (Admin::model()->isSuperAdmin()) {
             $menu_content = array(                   
@@ -297,6 +309,9 @@ class StudentController extends Controller
                 array('label'=>Yii::t('common','List Admins'), 'url'=>$list_admin),
                 array('label'=>Yii::t('common','Create Admin'), 'url'=>$create_admin),
                 array('label'=>Yii::t('common','Manage Admins'), 'url'=>$manage_admin),
+                
+                array('label'=>Yii::t('common','Update Site Desc'), 'url'=>$update_sites),
+                array('label'=>Yii::t('common','View Site Desc'), 'url'=>$view_sites),
             ); 
         }elseif (Admin::model()->isWDAdmin()) {
             $menu_content = array(
@@ -329,6 +344,8 @@ class StudentController extends Controller
         $create_admin = $this->createUrl('admin/create');
         $manage_admin = $this->createUrl('admin/admin');
         $backup_info = $this->createUrl('backup/BackupToExel');
+        $update_sites = $this->createUrl('site/update');
+        $view_sites = $this->createUrl('site/view');
 
         if (Admin::model()->isSuperAdmin()) {
             $menu_content = array(                   
@@ -343,6 +360,9 @@ class StudentController extends Controller
                 array('label'=>Yii::t('common','List Admins'), 'url'=>$list_admin),
                 array('label'=>Yii::t('common','Create Admin'), 'url'=>$create_admin),
                 array('label'=>Yii::t('common','Manage Admins'), 'url'=>$manage_admin),
+                
+                array('label'=>Yii::t('common','Update Site Desc'), 'url'=>$update_sites),
+                array('label'=>Yii::t('common','View Site Desc'), 'url'=>$view_sites),
             ); 
         }elseif (Admin::model()->isWDAdmin()) {
             $menu_content = array(
@@ -379,6 +399,9 @@ class StudentController extends Controller
         $create_student_score = $this->createUrl('studentscore/create',array('id'=>$id));
         $student_score = $this->createUrl('studentscore/view',array('id'=>$id));
         $backup_info = $this->createUrl('backup/BackupToExel');
+        
+        $update_sites = $this->createUrl('site/update');
+        $view_sites = $this->createUrl('site/view');
 
         if (Admin::model()->isSuperAdmin()) {
             $menu_content = array(                   
@@ -395,6 +418,9 @@ class StudentController extends Controller
                 array('label'=>Yii::t('common','List Admins'), 'url'=>$list_admin),
                 array('label'=>Yii::t('common','Create Admin'), 'url'=>$create_admin),
                 array('label'=>Yii::t('common','Manage Admins'), 'url'=>$manage_admin),
+                
+                array('label'=>Yii::t('common','Update Site Desc'), 'url'=>$update_sites),
+                array('label'=>Yii::t('common','View Site Desc'), 'url'=>$view_sites),
             ); 
         }elseif (Admin::model()->isWDAdmin()) {
             $menu_content = array(
@@ -435,6 +461,9 @@ class StudentController extends Controller
         $create_student_score = $this->createUrl('studentscore/create',array('id'=>$id));
         $student_score = $this->createUrl('studentscore/view',array('id'=>$id));
         $backup_info = $this->createUrl('backup/BackupToExel');
+        
+        $update_sites = $this->createUrl('site/update');
+        $view_sites = $this->createUrl('site/view');
 
         if (Admin::model()->isSuperAdmin()) {
             $menu_content = array(                   
@@ -452,6 +481,9 @@ class StudentController extends Controller
                 array('label'=>Yii::t('common','List Admins'), 'url'=>$list_admin),
                 array('label'=>Yii::t('common','Create Admin'), 'url'=>$create_admin),
                 array('label'=>Yii::t('common','Manage Admins'), 'url'=>$manage_admin),
+                
+                array('label'=>Yii::t('common','Update Site Desc'), 'url'=>$update_sites),
+                array('label'=>Yii::t('common','View Site Desc'), 'url'=>$view_sites),
             ); 
         }elseif (Admin::model()->isWDAdmin()) {
             $menu_content = array(

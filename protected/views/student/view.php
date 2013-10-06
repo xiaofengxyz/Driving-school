@@ -3,14 +3,14 @@
 /* @var $model Student */
 
 $this->breadcrumbs=array(
-	'Students'=>array('index'),
+	Yii::t('common','Students')=>array('index'),
 	$model->username,
 );
 
 $this->menu=$this->getViewMenu($model->record_id);
 ?>
 
-<h1>View Student <?php echo $model->username; ?></h1>
+<h1><?php echo Yii::t('common','View Student').' : '.$model->username; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

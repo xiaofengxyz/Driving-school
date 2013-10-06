@@ -214,6 +214,8 @@ class AdminController extends Controller
         $create_student = $this->createUrl('student/create');
         $manage_student = $this->createUrl('student/admin');
         $backup_info = $this->createUrl('backup/BackupToExel');
+        $update_sites = $this->createUrl('site/update');
+        $view_sites = $this->createUrl('site/view');
         
         if (Admin::model()->isSuperAdmin()) {
             $menu_content = array(
@@ -229,6 +231,9 @@ class AdminController extends Controller
 //                    array('label'=>'Update Admin', 'url'=>array('Update')),
 //                    array('label'=>'Delete Admin', 'url'=>array('Delete')),
                 array('label'=>Yii::t('common','Manage Admins'), 'url'=>array('admin')),
+                
+                array('label'=>Yii::t('common','Update Site Desc'), 'url'=>$update_sites),
+                array('label'=>Yii::t('common','View Site Desc'), 'url'=>$view_sites),
             ); 
         }elseif (Admin::model()->isWDAdmin()) {
             $menu_content = array(
@@ -267,6 +272,16 @@ class AdminController extends Controller
         return $menu_content;
     }
     
+    public function getSiteMenu(){
+        $menu_content = array();
+        $update_sites = $this->createUrl('site/update');
+        $view_sites = $this->createUrl('site/view');
+        $menu_content = array(
+                array('label'=>Yii::t('common','Update Site Desc'), 'url'=>$update_sites),
+                array('label'=>Yii::t('common','View Site Desc'), 'url'=>$view_sites),
+        );
+        return $menu_content;
+    }
 //    public function getSexDropOptions($sex) {
 //        
 //        if ($sex == 0) {

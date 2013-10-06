@@ -3,9 +3,9 @@
 /* @var $model Admin */
 
 $this->breadcrumbs=array(
-	'Admins'=>array('index'),
+	Yii::t('common','Admins')=>array('index'),
 	$model->admin_id=>array('view','id'=>$model->admin_id),
-	'Update',
+	Yii::t('common','Update Admin'),
 );
 
 $this->menu=array_merge($this->getStudentsMenu(),array(
@@ -13,10 +13,10 @@ $this->menu=array_merge($this->getStudentsMenu(),array(
 	array('label'=>Yii::t('common','Create Admin'), 'url'=>array('create')),
     array('label'=>Yii::t('common','View Admin'), 'url'=>array('view', 'id'=>$model->admin_id)),
 	array('label'=>Yii::t('common','Manage Admins'), 'url'=>array('admin')),
-));
+),$this->getSiteMenu());
 
 ?>
 
-<h1>Update Admin : <?php echo $model->admin_name; ?></h1>
+<h1><?php echo Yii::t('common','Update Admin').' : '.$model->admin_name; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

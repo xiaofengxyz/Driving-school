@@ -9,7 +9,7 @@ $this->pageTitle=Yii::app()->name;
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Admins',
+	Yii::t('common','Admins'),
 );
 
 $this->menu= $this->getIndexMenu();

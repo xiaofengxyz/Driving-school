@@ -47,30 +47,48 @@ class SiteController extends Controller
 		}
 	}
 
+    public function actionAbout($id = 1)
+	{
+        $model = $this->loadModel($id);
+		$this->render('about',array(
+			'model'=>$model,
+		));
+	}
 	/**
 	 * Displays the contact page
 	 */
-	public function actionContact()
+	public function actionContact($id = 1)
 	{
-		$model=new ContactForm;
-		if(isset($_POST['ContactForm']))
-		{
-			$model->attributes=$_POST['ContactForm'];
-			if($model->validate())
-			{
-				$name='=?UTF-8?B?'.base64_encode($model->name).'?=';
-				$subject='=?UTF-8?B?'.base64_encode($model->subject).'?=';
-				$headers="From: $name <{$model->email}>\r\n".
-					"Reply-To: {$model->email}\r\n".
-					"MIME-Version: 1.0\r\n".
-					"Content-type: text/plain; charset=UTF-8";
-
-				mail(Yii::app()->params['adminEmail'],$subject,$model->body,$headers);
-				Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');
-				$this->refresh();
-			}
-		}
-		$this->render('contact',array('model'=>$model));
+//		$model=new ContactForm;
+//		if(isset($_POST['ContactForm']))
+//		{
+//			$model->attributes=$_POST['ContactForm'];
+//			if($model->validate())
+//			{
+//				$name='=?UTF-8?B?'.base64_encode($model->name).'?=';
+//				$subject='=?UTF-8?B?'.base64_encode($model->subject).'?=';
+//				$headers="From: $name <{$model->email}>\r\n".
+//					"Reply-To: {$model->email}\r\n".
+//					"MIME-Version: 1.0\r\n".
+//					"Content-type: text/plain; charset=UTF-8";
+//
+//				mail(Yii::app()->params['adminEmail'],$subject,$model->body,$headers);
+//				Yii::app()->user->setFlash('contact','Thank you for contacting us. We will respond to you as soon as possible.');
+//				$this->refresh();
+//			}
+//		}
+//		$this->render('contact',array('model'=>$model));
+        
+        
+//		$dataProvider=new CActiveDataProvider('Site');
+//		$this->render('view',array(
+//			'dataProvider'=>$dataProvider,
+//		));
+        
+        $model = $this->loadModel($id);
+		$this->render('contact',array(
+			'model'=>$model,
+		));
 	}
 
 	/**
@@ -103,6 +121,58 @@ class SiteController extends Controller
 		$this->render('login',array('model'=>$model));
 	}
 
+        	/**
+	 * Displays a particular model.
+	 * @param integer $id the ID of the model to be displayed
+	 */
+	public function actionView($id = 1)
+	{
+        $model = $this->loadModel($id);
+		$this->render('view',array(
+			'model'=>$model,
+		));
+	}
+
+    /**
+	 * Updates a particular model.
+	 * If update is successful, the browser will be redirected to the 'view' page.
+	 * @param integer $id the ID of the model to be updated
+	 */
+	public function actionUpdate($id = 1)
+	{
+		$model=$this->loadModel($id);
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Site']))
+		{
+			$model->attributes=$_POST['Site'];
+			if($model->save())
+				$this->redirect(array('view'));
+		}
+
+		$this->render('update',array(
+			'model'=>$model,
+		));
+	}
+    
+    /**
+	 * Returns the data model based on the primary key given in the GET variable.
+	 * If the data model is not found, an HTTP exception will be raised.
+	 * @param integer $id the ID of the model to be loaded
+	 * @return Admin the loaded model
+	 * @throws CHttpException
+	 */
+	public function loadModel($id = 1)
+	{
+		$model=Site::model()->findByPk($id);
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
+    
+    
 	/**
 	 * Logs out the current user and redirect to homepage.
 	 */
@@ -112,15 +182,44 @@ class SiteController extends Controller
 		$this->redirect(Yii::app()->homeUrl);
 	}
         
-        public function getMenu()
+    public function getMenu()
 	{
 //		$this->user = Yii::app()->user;
-                if (Yii::app()->user->isGuest) {
-                    return array();
-                }
-                $adminPanel = $this->createUrl('admin/index');
-                return array(
-                    array('label'=>'进入后台管理系统', 'url'=>$adminPanel),
-                ); 
+        if (Yii::app()->user->isGuest) {
+            return array();
+        }
+        $adminPanel = $this->createUrl('admin/index');
+        return array(
+            array('label'=>'进入后台管理系统', 'url'=>$adminPanel),
+        ); 
 	}
+    
+    
+    public function getStudentsMenu(){
+        $menu_content = array();
+        $list_student = $this->createUrl('student/index');
+        $create_student = $this->createUrl('student/create');
+        $manage_student = $this->createUrl('student/admin');
+        $backup_info = $this->createUrl('backup/BackupToExel');
+        $menu_content = array(
+            array('label'=>Yii::t('common','List Students'), 'url'=>$list_student),
+            array('label'=>Yii::t('common','Create Student'), 'url'=>$create_student),
+            array('label'=>Yii::t('common','Manage Students'), 'url'=>$manage_student),
+            array('label'=>Yii::t('common','Backup StudentInfo'), 'url'=>$backup_info),
+        );
+        return $menu_content;
+    }
+    
+    public function getAdminsMenu(){
+        $menu_content = array();
+        $list_student = $this->createUrl('admin/list');
+        $create_student = $this->createUrl('admin/create');
+        $manage_student = $this->createUrl('admin/admin');
+        $menu_content = array(
+            array('label'=>Yii::t('common','List Admins'), 'url'=>$list_student),
+            array('label'=>Yii::t('common','Create Admin'), 'url'=>$create_student),
+            array('label'=>Yii::t('common','Manage Admins'), 'url'=>$manage_student),
+        );
+        return $menu_content;
+    }
 }

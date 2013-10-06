@@ -3,14 +3,14 @@
 /* @var $model Admin */
 
 $this->breadcrumbs=array(
-	'Admins'=>array('index'),
-	'Manage Admins',
+	Yii::t('common','Admins')=>array('index'),
+	Yii::t('common','Manage Admins'),
 );
 
 $this->menu=array_merge($this->getStudentsMenu(),array(   
 	array('label'=>Yii::t('common','List Admins'), 'url'=>array('list')),
 	array('label'=>Yii::t('common','Create Admin'), 'url'=>array('create')),    
-));
+),$this->getSiteMenu());
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Admins</h1>
+<h1><?php echo Yii::t('common','Manage Admins')?></h1>
 
 <p>
 <?php echo Yii::t('yii','use comparison operatorsearch values'); ?>

@@ -9,4 +9,6 @@ $this->menu= $this->getMenu();
 ?>
 <h1><?php echo Yii::t('common', 'about') ?></h1>
 
-<p> <?php echo Yii::t('common', 'Anda driver school description') ?></p>
+<p> <?php echo $model->site_desc; ?></p>
+
+

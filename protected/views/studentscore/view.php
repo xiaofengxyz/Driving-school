@@ -3,7 +3,7 @@
 /* @var $model Studentscore */
 
 $this->breadcrumbs=array(
-	'Studentscores'=>array('index'),
+	Yii::t('common','Studentscore')=>array('index'),
 	$model[0]->record_id,
 );
 
@@ -13,7 +13,7 @@ $this->menu=array_merge($this->getStudentsMenu(),array(
 ),$this->getAdminsMenu());
 ?>
 
-<h1>View Studentscore #<?php echo $model[0]->record_id; ?></h1>
+<h1><?php echo Yii::t('common','View Studentscore').' : #'.$model[0]->record_id; ?></h1>
 
 <?php 
 foreach ($model as $value) {

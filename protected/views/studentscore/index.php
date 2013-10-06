@@ -3,7 +3,7 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Studentscores',
+	Yii::t('common','Studentscore'),
 );
 
 $this->menu=array_merge($this->getStudentsMenu(),array(
@@ -12,7 +12,7 @@ $this->menu=array_merge($this->getStudentsMenu(),array(
 ),$this->getAdminsMenu());
 ?>
 
-<h1>Studentscores</h1>
+<h1><?php echo Yii::t('common','Studentscore'); ?></h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

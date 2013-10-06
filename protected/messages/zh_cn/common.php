@@ -77,6 +77,8 @@ return array(
     'male' => '男',
     'female' => '女',
     
+    'Error' => '错误',
+    
     'superadmin' => '超级管理员', 
     'writeDeleteadmin' => '一级管理员',
     'writeadmin' => '普通管理员', 
@@ -84,6 +86,7 @@ return array(
     
     'Advanced Search' => '高级搜索',
     
+    'Students' => '学员',
     'List Students' => '学员信息列表',
     'Create Student' => '创建学员信息',
     'Update Student' => '修改学员信息',
@@ -92,15 +95,16 @@ return array(
     'Backup StudentInfo' => '备份学员信息',
     'View Student' => '查看学员信息',
     
-    
+    'Admins' => '管理员',
     'Admins Home' => '管理员首页',
     'List Admins' => '管理员信息列表',
     'Create Admin' => '创建管理员',
     'Update Admin' => '修改管理员信息',
     'Delete Admin' => '删除管理员',
-    'View Admins' => '查看管理员',
+    'View Admin' => '查看管理员',
     'Manage Admins' => '管理管理员信息',
     
+    'Studentscore' => '学员成绩',
     'View Studentscore' => '查看学员成绩',
     'Create Studentscore' => '创建学员成绩',
     'Update Studentscore' => '修改学员成绩',
@@ -129,6 +133,24 @@ return array(
     'Save' => '保存',
     'Create' => '创建',
     'date_form' => '<span class="required">（格式必须是：0000-00-00）</span>',
+    
+    'anda' => '安达驾校',
+    'operations' => '操作',
+    
+    'A1' => 'A1',
+    'B1' => 'B1',
+    'C1' => 'C1',
      
+    
+    'site_desc' => '驾校描述',
+    'contact_qq' => 'QQ号码',
+    'contact_phone' => '联系电话',
+    'contact_telephone' => '热线',
+    'contact_eroll_address' => '报名地址',
+    'contact_school_address' => '学校地址',
+    
+    'Update Site Desc' => '更新网站描述信息',
+    'View Site Desc' => '查看网站描述信息',
+    
 );
 ?>

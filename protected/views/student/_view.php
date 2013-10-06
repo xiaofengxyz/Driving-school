@@ -21,7 +21,10 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('apply_car_type')); ?>:</b>
-	<?php echo CHtml::encode($data->apply_car_type); ?>
+	<?php 
+    $car_type = array(0 => '', 1 =>Yii::t('common','A1'), 2 => Yii::t('common','B1'), 3 => Yii::t('common','C1'));
+    echo CHtml::encode($car_type[$data->apply_car_type]); 
+    ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('personal_id')); ?>:</b>

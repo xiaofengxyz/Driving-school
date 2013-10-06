@@ -65,7 +65,9 @@ $this->breadcrumbs=array(
         $count=$command_student->queryScalar();
         $dataReader_student=null;
         $dataReader_studentscore=null;
+        $car_type = array(0 => '', 1=> 'A1', 2 => 'B1', 3 => 'C1');
 
+        
         // 获取student的记录
         for ($index = 0; $index < $count;) {
             $index += $this->queryCount;
@@ -96,7 +98,7 @@ $this->breadcrumbs=array(
                 $student_data['record_id'] = $row['record_id'];
                 $student_data['username'] = $row['username'];
                 $student_data['sex'] = $row['sex'] == 0 ? Yii::t('common','male') : Yii::t('common','female');
-                $student_data['apply_car_type'] = $row['apply_car_type'];
+                $student_data['apply_car_type'] = $car_type[$row['apply_car_type']];
                 $student_data['personal_id'] = $row['personal_id'];
                 $student_data['stdudent_id'] = $row['stdudent_id'];
                 $student_data['phone'] = $row['phone'];
@@ -109,7 +111,7 @@ $this->breadcrumbs=array(
                 $student_data['is_submit'] = $row['is_submit'] == 0 ? Yii::t('common','no') : Yii::t('common','yes');
                 $student_data['submit_date'] = $row['submit_date'];
                 $student_data['is_add_car'] = $row['is_add_car'] == 0 ? Yii::t('common','no') : Yii::t('common','yes');
-                $student_data['origin_car_type'] = $row['origin_car_type'];
+                $student_data['origin_car_type'] = $car_type[$row['origin_car_type']];
 
                 // 获取成绩
                 $sql_studentscore = 'SELECT * FROM tbl_studentscore WHERE record_id = '.$student_data['record_id'];

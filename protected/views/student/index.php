@@ -3,8 +3,8 @@
 /* @var $model Student */
 
 $this->breadcrumbs=array(
-	'Students'=>array('index'),
-	'List Students',
+	Yii::t('common','Students')=>array('index'),
+	Yii::t('common','List Students'),
 );
 
 $this->menu=$this->getManageMenu();
@@ -23,7 +23,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>List Students</h1>
+<h1><?php echo Yii::t('common','List Students'); ?></h1>
 
 <p>
 <?php echo Yii::t('yii','use comparison operatorsearch values'); ?>
@@ -44,7 +44,7 @@ $('.search-form form').submit(function(){
 		'record_id',
 		'username',
 //		'sex',
-		'apply_car_type',
+//		'apply_car_type',
 		'personal_id',
 		'stdudent_id',
 		'phone',

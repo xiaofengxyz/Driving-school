@@ -5,7 +5,7 @@
 
 $this->pageTitle=Yii::app()->name . ' - Contact Us';
 $this->breadcrumbs=array(
-	'Contact',
+	Yii::t('common', 'contact'),
 );
 $this->menu= $this->getMenu();
 ?>
@@ -24,62 +24,15 @@ $this->menu= $this->getMenu();
 <?php echo Yii::t('common', 'If you have questions, contact us.') ?>
 </p>
 
-<div class="form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'contact-form',
-	'enableClientValidation'=>true,
-	'clientOptions'=>array(
-		'validateOnSubmit'=>true,
+<?php $this->widget('zii.widgets.CDetailView', array(
+	'data'=>$model,
+	'attributes'=>array(
+        'contact_phone',
+        'contact_telephone',
+        'contact_qq',
+        'contact_eroll_address',
+        'contact_school_address',
 	),
 )); ?>
-
-	<p class="note"> <?php echo Yii::t('yii','Fields with') ?> <span class="required">*</span><?php echo Yii::t('yii','are required.') ?></p>
-
-	<?php echo $form->errorSummary($model); ?>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,Yii::t('common','Name'));?>
-		<?php echo $form->textField($model,'name'); ?>
-		<?php echo $form->error($model,'name'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,Yii::t('common','Email')); ?>
-		<?php echo $form->textField($model,'email'); ?>
-		<?php echo $form->error($model,'email'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,Yii::t('common','Subject')); ?>
-		<?php echo $form->textField($model,'subject',array('size'=>60,'maxlength'=>128)); ?>
-		<?php echo $form->error($model,'subject'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,Yii::t('common','Body')); ?>
-		<?php echo $form->textArea($model,'body',array('rows'=>6, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'body'); ?>
-	</div>
-
-	<?php if(CCaptcha::checkRequirements()): ?>
-	<div class="row">
-		<?php echo $form->labelEx($model,Yii::t('common','verifyCode')); ?>
-		<div>
-		<?php $this->widget('CCaptcha'); ?>
-		<?php echo $form->textField($model,'verifyCode'); ?>
-		</div>
-		<div class="hint"><?php echo Yii::t('common', 'enter the letters') ?></div>
-		<?php echo $form->error($model,'verifyCode'); ?>
-	</div>
-	<?php endif; ?>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton(Yii::t('common', 'Submit')); ?>
-	</div>
-
-<?php $this->endWidget(); ?>
-
-</div><!-- form -->
 
 <?php endif; ?>

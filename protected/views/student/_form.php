@@ -29,7 +29,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'apply_car_type'); ?>
-		<?php echo $form->textField($model,'apply_car_type',array('size'=>60,'maxlength'=>128)); ?>
+        <?php echo $form->dropDownList($model,'apply_car_type',array(0 => '', 1 => Yii::t('common','A1'), 2 => Yii::t('common','B1'), 3 => Yii::t('common','C1')));?>
 		<?php echo $form->error($model,'apply_car_type'); ?>
 	</div>
 
@@ -107,10 +107,10 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'origin_car_type'); ?>
-		<?php echo $form->textField($model,'origin_car_type',array('size'=>60,'maxlength'=>128)); ?>
+        <?php echo $form->dropDownList($model,'origin_car_type',array(0 => '', 1 => Yii::t('common','A1'), 2 => Yii::t('common','B1'), 3 => Yii::t('common','C1')));?>
 		<?php echo $form->error($model,'origin_car_type'); ?>
 	</div>
-
+    
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

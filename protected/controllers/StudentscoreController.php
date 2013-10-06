@@ -256,12 +256,17 @@ class StudentscoreController extends Controller
         $create_admin = $this->createUrl('admin/create');
         $manage_admin = $this->createUrl('admin/admin');
         $backup_info = $this->createUrl('backup/BackupToExel');
+        $update_sites = $this->createUrl('site/update');
+        $view_sites = $this->createUrl('site/view');
         if (Admin::model()->isSuperAdmin()) {
             $menu_content = array(
                 
                 array('label'=>Yii::t('common','List Admins'), 'url'=>$list_admin),
                 array('label'=>Yii::t('common','Create Admin'), 'url'=>$create_admin),
                 array('label'=>Yii::t('common','Manage Admins'), 'url'=>$manage_admin),
+
+                array('label'=>Yii::t('common','Update Site Desc'), 'url'=>$update_sites),
+                array('label'=>Yii::t('common','View Site Desc'), 'url'=>$view_sites),                
             ); 
         }
 

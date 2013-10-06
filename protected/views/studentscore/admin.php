@@ -3,8 +3,8 @@
 /* @var $model Studentscore */
 
 $this->breadcrumbs=array(
-	'Studentscores'=>array('index'),
-	'Manage',
+	Yii::t('common','Studentscore')=>array('index'),
+	Yii::t('common','Manage Studentscores'),
 );
 
 $this->menu=array_merge($this->getStudentsMenu(),array(
@@ -27,7 +27,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Studentscores</h1>
+<h1><?php echo Yii::t('common','Manage Studentscores'); ?></h1>
 
 <p>
 <?php echo Yii::t('yii','use comparison operatorsearch values'); ?>

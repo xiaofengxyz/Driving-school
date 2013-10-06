@@ -26,15 +26,15 @@ CREATE TABLE `tbl_studentscore` (
   `course` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `times` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `is_qualified` tinyint(1) unsigned DEFAULT '0',
-  `qualified_date` date NOT NULL,
+  `qualified_date` date NOT NULL  DEFAULT '0000-00-00',
   PRIMARY KEY (`record_id`,`course`,`times`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 --  Records of `tbl_studentscore`
 -- ----------------------------
-BEGIN;
-INSERT INTO `tbl_studentscore` VALUES ('20', '333333333333333333', '20', '1', '1', '0', '0000-00-00'), ('20', '333333333333333333', '10', '1', '2', '0', '0000-00-00');
-COMMIT;
+-- BEGIN;
+-- INSERT INTO `tbl_studentscore` VALUES ('20', '333333333333333333', '20', '1', '1', '0', '0000-00-00'), ('20', '333333333333333333', '10', '1', '2', '0', '0000-00-00');
+-- COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

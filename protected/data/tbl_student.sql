@@ -1,21 +1,20 @@
+SET NAMES utf8;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+--  Table structure for `tbl_studentscore`
+-- ----------------------------
+DROP TABLE IF EXISTS `tbl_studentscore`;
+CREATE TABLE `tbl_studentscore` (
+  `record_id` int(11) NOT NULL,
+  `personal_id` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `score` tinyint(3) unsigned DEFAULT '0',
+  `course` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `times` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `is_qualified` tinyint(1) unsigned DEFAULT '0',
+  `qualified_date` date NOT NULL,
+  PRIMARY KEY (`record_id`,`course`,`times`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
-CREATE TABLE tbl_student (
-    record_id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(128) NOT NULL,
-    sex tinyint(1) unsigned DEFAULT '0',
-    apply_car_type VARCHAR(128) NOT NULL,
-    personal_id VARCHAR(128) NOT NULL,
-    stdudent_id VARCHAR(128) NOT NULL,
-    phone VARCHAR(128) NOT NULL,
-    is_residence tinyint(1) unsigned DEFAULT '1',
-    address VARCHAR(128) NOT NULL,
-    enroll_date DATE NOT NULL DEFAULT '0000-00-00',
-    record_date DATE NOT NULL DEFAULT '0000-00-00',
-    is_pickup tinyint(1) unsigned DEFAULT '0',
-    pickup_date DATE NOT NULL DEFAULT '0000-00-00',
-    is_submit tinyint(1) unsigned DEFAULT '0',
-    submit_date DATE NOT NULL DEFAULT '0000-00-00',
-    is_add_car tinyint(1) unsigned DEFAULT '0',
-    origin_car_type VARCHAR(128) NOT NULL
-);
+SET FOREIGN_KEY_CHECKS = 1;

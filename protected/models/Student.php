@@ -7,7 +7,7 @@
  * @property integer $record_id
  * @property string $username
  * @property integer $sex
- * @property string $apply_car_type
+ * @property integer $apply_car_type
  * @property string $personal_id
  * @property string $stdudent_id
  * @property string $phone
@@ -50,8 +50,8 @@ class Student extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, apply_car_type, personal_id, stdudent_id, phone', 'required'),
-			array('sex, is_residence, is_pickup, is_submit, is_add_car', 'numerical', 'integerOnly'=>true),
+			array('username, sex, apply_car_type, personal_id, , phone, is_residence, address, enroll_date, record_date, is_pickup, pickup_date, is_submit, submit_date, is_add_car', 'required'),
+			array('sex, apply_car_type, is_residence, is_pickup, is_submit, is_add_car', 'numerical', 'integerOnly'=>true),
 			array('username, apply_car_type, stdudent_id, address, origin_car_type', 'length', 'max'=>128),
             array('personal_id', 'length', 'max'=>18, 'min'=>18),
             array('phone', 'length', 'max'=>11, 'min'=>11),
