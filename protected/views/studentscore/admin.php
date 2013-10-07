@@ -7,10 +7,7 @@ $this->breadcrumbs=array(
 	Yii::t('common','Manage Studentscores'),
 );
 
-$this->menu=array_merge($this->getStudentsMenu(),array(
-	array('label'=>Yii::t('common','List Studentscore'), 'url'=>array('index')),
-	array('label'=>Yii::t('common','Create Studentscore'), 'url'=>array('create')),
-),$this->getAdminsMenu());
+$this->menu=array_merge($this->getStudentsMenu($model->record_id),$this->getManageMenu($model->record_id),$this->getAdminsMenu());
 
 
 Yii::app()->clientScript->registerScript('search', "
@@ -54,6 +51,21 @@ $('.search-form form').submit(function(){
 		'qualified_date',
 		array(
 			'class'=>'CButtonColumn',
+            'buttons' => array(
+                 'delete' => array(
+                 'visible' => 'Admin::model()->isWDAdmin()',  
+                 'url'=>'Yii::app()->controller->createUrl("studentscore/delete", array("id"=>$data->record_id,"course" => $data->course, "times" => $data->times))',
+                ),
+                 'update' => array(
+                 'visible' => 'Admin::model()->isWAdmin()',
+                     'url'=>'Yii::app()->controller->createUrl("studentscore/update", array("id"=>$data->record_id))',
+                ),
+                'view' => array(
+                 'visible' => 'true',
+                 'url'=>'Yii::app()->controller->createUrl("studentscore/view", array("id"=>$data->record_id))',
+                ),
+            ),
+            'template'=>'{view}{delete}{update}',
 		),
 	),
 )); ?>

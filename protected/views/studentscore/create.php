@@ -7,8 +7,7 @@ $this->breadcrumbs=array(
 	Yii::t('common','Create Studentscore'),
 );
 
-$this->menu=array_merge($this->getStudentsMenu(),array(
-),$this->getAdminsMenu());
+$this->menu=array_merge($this->getStudentsMenu($model->record_id),$this->getCreateMenu($model->record_id),$this->getAdminsMenu());
 ?>
 
 <h1><?php echo Yii::t('common','Create Studentscore'); ?></h1>

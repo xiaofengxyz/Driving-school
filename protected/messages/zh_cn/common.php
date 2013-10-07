@@ -106,6 +106,8 @@ return array(
     
     'Studentscore' => '学员成绩',
     'View Studentscore' => '查看学员成绩',
+    'List Studentscore' => '学员成绩列表',
+    'Manage Studentscores' => '管理学员成绩',
     'Create Studentscore' => '创建学员成绩',
     'Update Studentscore' => '修改学员成绩',
     
@@ -132,6 +134,8 @@ return array(
     
     'Save' => '保存',
     'Create' => '创建',
+    'Search' => '搜索',
+    'Delete' => '删除',
     'date_form' => '<span class="required">（格式必须是：0000-00-00）</span>',
     
     'anda' => '安达驾校',
@@ -151,6 +155,15 @@ return array(
     
     'Update Site Desc' => '更新网站描述信息',
     'View Site Desc' => '查看网站描述信息',
+    
+    
+    'The score has not existed.' => '没有找到此学员的分数。',
+    'The score has existed.' => '此科目的这次分数已经存在，请去修改相关分数，或创建新的分数。',
+    'The requested page does not exist.' => '请求的页面不存在。',
+    'There is a mistake' => '出现错误了。',
+    'The peopele has existed.' => '这个人已经报名了。',
+    'You have no authority.' => '您没有操作权限，请联系管理员。',
+    'The student id has existed.' => '学生卡号已存在。',
     
 );
 ?>

@@ -8,10 +8,7 @@ $this->breadcrumbs=array(
 	Yii::t('common','Update Studentscore'),
 );
 
-$this->menu=array_merge($this->getStudentsMenu(),array(
-    array('label'=>Yii::t('common','View Student'), 'url'=>$this->createUrl('student/view',array('id'=>$model[0]->record_id))),
-	array('label'=>Yii::t('common','View Studentscore'), 'url'=>array('view', 'id'=>$model[0]->record_id)),
-),$this->getAdminsMenu());
+$this->menu=array_merge($this->getStudentsMenu($model[0]->record_id),$this->getUpdateMenu($model[0]->record_id),$this->getAdminsMenu());
 
 ?>
 

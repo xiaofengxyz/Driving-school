@@ -168,7 +168,7 @@ class SiteController extends Controller
 	{
 		$model=Site::model()->findByPk($id);
 		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
+			throw new CHttpException(404,Yii::t('common','The requested page does not exist.'));
 		return $model;
 	}
     
@@ -206,6 +206,7 @@ class SiteController extends Controller
             array('label'=>Yii::t('common','Create Student'), 'url'=>$create_student),
             array('label'=>Yii::t('common','Manage Students'), 'url'=>$manage_student),
             array('label'=>Yii::t('common','Backup StudentInfo'), 'url'=>$backup_info),
+            array('label'=>'------------------------------'),
         );
         return $menu_content;
     }
@@ -219,6 +220,7 @@ class SiteController extends Controller
             array('label'=>Yii::t('common','List Admins'), 'url'=>$list_student),
             array('label'=>Yii::t('common','Create Admin'), 'url'=>$create_student),
             array('label'=>Yii::t('common','Manage Admins'), 'url'=>$manage_student),
+            array('label'=>'------------------------------'),
         );
         return $menu_content;
     }

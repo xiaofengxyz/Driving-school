@@ -46,6 +46,10 @@
 		<?php echo $form->textField($model,'qualified_date'); ?>
 	</div>
 
+	<div class="row buttons">
+		<?php echo CHtml::submitButton(Yii::t('common','Search')); ?>
+	</div>    
+    
 <?php $this->endWidget(); ?>
 
 </div><!-- search-form -->

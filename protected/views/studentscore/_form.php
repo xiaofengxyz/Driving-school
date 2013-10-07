@@ -22,7 +22,7 @@
 	</div>-->
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'scoret'); ?>
+		<?php echo $form->labelEx($model,'score'); ?>
 		<?php echo $form->textField($model,'score'); ?>
 		<?php echo $form->error($model,'score'); ?>
 	</div>
@@ -53,7 +53,14 @@
 
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('common','Create') : Yii::t('common','Save')); ?>
+	
+		<?php 
+        $url = $this->createUrl('delete', array('id' => $model->record_id,"course" => $model->course, "times" => $model->times));
+        if (!$model->isNewRecord && Admin::model()->isWDAdmin()) {
+            echo CHtml::linkButton(Yii::t('common','Delete'),array('href' => $url)); 
+        }
+        ?>
 	</div>
 
 <?php $this->endWidget(); ?>

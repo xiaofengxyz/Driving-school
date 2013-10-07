@@ -28,16 +28,18 @@ class StudentscoreController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','admin'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
-				'users'=>array('@'),
+//				'users'=>array('@'),
+                'expression'=>'yii::app()->admin->isWAdmin()'
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'actions'=>array('delete'),
+//				'users'=>array('admin'),
+                'expression'=>'yii::app()->admin->isWDAdmin()'
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -70,7 +72,7 @@ class StudentscoreController extends Controller
             $index++;
         }
         if (!isset($model_array))
-            throw new CHttpException(404,'The score has not existed.');
+            throw new CHttpException(404,Yii::t('common','The score has not existed.'));
 		$this->render('view',array(
 			'model'=>$model_array,
 		));
@@ -92,7 +94,7 @@ class StudentscoreController extends Controller
 			$model->attributes=$_POST['Studentscore'];
             $model_has = Studentscore::model()->findByPk(array('record_id' => $id, 'course' => $model->course, 'times' => $model->times));
             if(isset($model_has)) {
-                throw new CHttpException(404,'The score has existed.');
+                throw new CHttpException(404,Yii::t('common','The score has existed.'));
             }
             $model_student = Student::model()->findByPk($id);
             $model['personal_id'] = $model_student->personal_id;
@@ -133,7 +135,7 @@ class StudentscoreController extends Controller
 				$this->redirect(array('view','id'=>$model->record_id));
 		}
         if (!isset($model_data))
-            throw new CHttpException(404,'There is a mistake.');
+            throw new CHttpException(404,Yii::t('common','There is a mistake.'));
         
 		$this->render('update',array(
 			'model'=>$model_data,
@@ -145,13 +147,34 @@ class StudentscoreController extends Controller
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionDelete($id)
+	public function actionDelete($id,$course,$times)
 	{
-		$this->loadModel($id)->delete();
+//		$this->loadModel($id)->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+//		if(!isset($_GET['ajax']))
+//			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+
+        $model_data = new Studentscore;
+		if(!isset($course) && !isset($times) && isset($_POST['Studentscore']))
+		{           
+			$model_data->attributes=$_POST['Studentscore'];
+            $model_data->record_id = $id;
+			
+		} elseif(isset($course) && isset($times)) {
+            $model_data->record_id = $id;
+            $model_data->course = $course;
+            $model_data->times = $times;
+        }
+        
+        $model_del = Studentscore::model()->deleteByPk(array('record_id' => $id, 'course' => $model_data->course, 'times' => $model_data->times));
+//        $this->redirect(array('view','id'=>$id));
+        $this->redirect(array('view','id'=>$id));
+//		if(!isset($_GET['ajax']))
+//			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+//        else {
+//            $this->redirect(array('view','id'=>$id));
+//        }
 	}
 
 	/**
@@ -159,20 +182,22 @@ class StudentscoreController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Studentscore');
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
+//		$dataProvider=new CActiveDataProvider('Studentscore');
+//		$this->render('index',array(
+//			'dataProvider'=>$dataProvider,
+//		));
 	}
 
 	/**
 	 * Manages all models.
 	 */
-	public function actionAdmin()
+	public function actionAdmin($id)
 	{
 		$model=new Studentscore('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Studentscore']))
+        if (isset($id))
+            $model->record_id = $id;
+        elseif(isset($_GET['Studentscore']))
 			$model->attributes=$_GET['Studentscore'];
 
 		$this->render('admin',array(
@@ -191,7 +216,7 @@ class StudentscoreController extends Controller
 	{
 		$model=Studentscore::model()->findAllByPk($id);
 		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
+			throw new CHttpException(404,Yii::t('common','The requested page does not exist.'));
 		return $model;
 	}
 
@@ -212,36 +237,45 @@ class StudentscoreController extends Controller
 	 * Get the Menu of page.
 	 * 
 	 */
-    public function getStudentsMenu(){
+    public function getStudentsMenu($id){
 //            $student = Admin::model()->findByAttributes(array('admin_name'=>Yii::app()->student->name));
         $menu_content = array();
         $list_student = $this->createUrl('student/index');
         $create_student = $this->createUrl('student/create');
+        $view_student = $this->createUrl('student/view',array('id'=>$id));
         $manage_student = $this->createUrl('student/admin');
         $backup_info = $this->createUrl('backup/BackupToExel');
         
         if (Admin::model()->isSuperAdmin()) {
             $menu_content = array(
                 array('label'=>Yii::t('common','List Students'), 'url'=>$list_student),
+                array('label'=>Yii::t('common','View Student'), 'url'=>$view_student),
                 array('label'=>Yii::t('common','Create Student'), 'url'=>$create_student),
                 array('label'=>Yii::t('common','Manage Students'), 'url'=>$manage_student),
                 
                 array('label'=>Yii::t('common','Backup StudentInfo'), 'url'=>$backup_info),
+                array('label'=>'------------------------------'),
             ); 
         }elseif (Admin::model()->isWDAdmin()) {
             $menu_content = array(
                 array('label'=>Yii::t('common','List Students'), 'url'=>$list_student),
+                array('label'=>Yii::t('common','View Student'), 'url'=>$view_student),
                 array('label'=>Yii::t('common','Create Student'), 'url'=>$create_student),
                 array('label'=>Yii::t('common','Manage Students'), 'url'=>$manage_student),
+                array('label'=>'------------------------------'),
             );
         }elseif (Admin::model()->isWAdmin()) {
             $menu_content = array(
                 array('label'=>Yii::t('common','List Students'), 'url'=>$list_student),
+                array('label'=>Yii::t('common','View Student'), 'url'=>$view_student),
                 array('label'=>Yii::t('common','Create Student'), 'url'=>$create_student),
+                array('label'=>'------------------------------'),
             );
         }  else {
             $menu_content = array(
                 array('label'=>Yii::t('common','List Students'), 'url'=>$list_student),
+                array('label'=>Yii::t('common','View Student'), 'url'=>$view_student),
+                array('label'=>'------------------------------'),
             );                
         }
 
@@ -260,14 +294,108 @@ class StudentscoreController extends Controller
         $view_sites = $this->createUrl('site/view');
         if (Admin::model()->isSuperAdmin()) {
             $menu_content = array(
-                
+                array('label'=>'------------------------------'),
                 array('label'=>Yii::t('common','List Admins'), 'url'=>$list_admin),
                 array('label'=>Yii::t('common','Create Admin'), 'url'=>$create_admin),
                 array('label'=>Yii::t('common','Manage Admins'), 'url'=>$manage_admin),
+                array('label'=>'------------------------------'),
 
                 array('label'=>Yii::t('common','Update Site Desc'), 'url'=>$update_sites),
                 array('label'=>Yii::t('common','View Site Desc'), 'url'=>$view_sites),                
             ); 
+        }
+
+        return $menu_content;
+    }
+
+    /**
+	 * Get the Menu of page.
+	 * 
+	 */
+    public function getViewMenu($id){
+        $menu_content = array();
+        
+        if (Admin::model()->isWAdmin()) {
+            $menu_content = array(
+//                array('label'=>Yii::t('common','View Studentscore'), 'url'=>array('view', 'id'=>$id)),
+                array('label'=>Yii::t('common','Create Studentscore'), 'url'=>array('create', 'id'=>$id)),
+                array('label'=>Yii::t('common','Update Studentscore'), 'url'=>array('update', 'id'=>$id)),
+                array('label'=>Yii::t('common','Manage Studentscores'), 'url'=>array('admin', 'id'=>$id)),
+
+            );
+        }  else {
+            $menu_content = array(
+                array('label'=>Yii::t('common','Manage Studentscores'), 'url'=>array('admin', 'id'=>$id)),
+            );                
+        }
+
+        return $menu_content;
+    }
+
+    /**
+	 * Get the Menu of page.
+	 * 
+	 */
+    public function getCreateMenu($id){
+        $menu_content = array();
+        
+        if (Admin::model()->isWAdmin()) {
+            $menu_content = array(
+                array('label'=>Yii::t('common','View Studentscore'), 'url'=>array('view', 'id'=>$id)),
+//                array('label'=>Yii::t('common','Create Studentscore'), 'url'=>array('create', 'id'=>$id)),
+                array('label'=>Yii::t('common','Update Studentscore'), 'url'=>array('update', 'id'=>$id)),
+                array('label'=>Yii::t('common','Manage Studentscores'), 'url'=>array('admin', 'id'=>$id)),
+
+            );
+        }  else {
+            $menu_content = array(
+                array('label'=>Yii::t('common','Manage Studentscores'), 'url'=>array('admin', 'id'=>$id)),
+            );                
+        }
+
+        return $menu_content;
+    }
+    
+    /**
+	 * Get the Menu of page.
+	 * 
+	 */
+    public function getUpdateMenu($id){
+        $menu_content = array();
+
+        if (Admin::model()->isWAdmin()) {
+            $menu_content = array(
+                array('label'=>Yii::t('common','View Studentscore'), 'url'=>array('view', 'id'=>$id)),
+                array('label'=>Yii::t('common','Create Studentscore'), 'url'=>array('create', 'id'=>$id)),
+//                array('label'=>Yii::t('common','Update Studentscore'), 'url'=>array('update', 'id'=>$id)),
+                array('label'=>Yii::t('common','Manage Studentscores'), 'url'=>array('admin', 'id'=>$id)),
+
+            );
+        }  else {
+            $menu_content = array(
+                array('label'=>Yii::t('common','Manage Studentscores'), 'url'=>array('admin', 'id'=>$id)),
+            );                
+        }
+
+        return $menu_content;
+    }
+
+    /**
+	 * Get the Menu of page.
+	 * 
+	 */
+    public function getManageMenu($id){
+        $menu_content = array();
+        
+        if (Admin::model()->isWAdmin()) {
+            $menu_content = array(
+                array('label'=>Yii::t('common','View Studentscore'), 'url'=>array('view', 'id'=>$id)),
+                array('label'=>Yii::t('common','Create Studentscore'), 'url'=>array('create', 'id'=>$id)),
+                array('label'=>Yii::t('common','Update Studentscore'), 'url'=>array('update', 'id'=>$id)),
+
+            );
+        }  else {
+            $menu_content = array();                
         }
 
         return $menu_content;

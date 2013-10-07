@@ -58,7 +58,7 @@ class BackupController extends Controller
             $this->redirect($url);
         }
         if (!Admin::model()->isSuperAdmin()) {
-            throw new CHttpException(404,'You have no authority.');
+            throw new CHttpException(404,Yii::t('common','You have no authority.'));
         }
 		$this->render('index');
 	}

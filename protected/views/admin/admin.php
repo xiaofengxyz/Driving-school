@@ -47,7 +47,10 @@ $('.search-form form').submit(function(){
 		'admin_id',
 		'admin_name',
 		'password',
-		'sex',
+        array(            // display 'sex' using an expression
+            'name'=>'sex',
+            'value'=>'Student::model()->getSex($data)',
+        ),
 		'personal_name',
 		'phone',
 		/*

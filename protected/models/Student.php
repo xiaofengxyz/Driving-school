@@ -131,4 +131,14 @@ class Student extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+    
+    public function getCarType($data) {
+        $car_type = array(0 => '', 1=> 'A1', 2 => 'B1', 3 => 'C1');
+        return $car_type[$data->apply_car_type];
+    }
+    
+    public function getSex($data) {
+        $sex = array(0 => Yii::t('common','male'), 1 => Yii::t('common','female'));
+        return $sex[$data->sex];
+    }
 }

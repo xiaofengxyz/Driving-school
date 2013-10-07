@@ -36,15 +36,22 @@ $('.search-form form').submit(function(){
 )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php 
+$this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'student-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
 		'record_id',
 		'username',
-//		'sex',
-//		'apply_car_type',
+        array(            // display 'sex' using an expression
+            'name'=>'sex',
+            'value'=>'Student::model()->getSex($data)',
+        ),
+        array(            // display 'apply_car_type' using an expression
+            'name'=>'apply_car_type',
+            'value'=>'Student::model()->getCarType($data)',
+        ),        
 		'personal_id',
 		'stdudent_id',
 		'phone',

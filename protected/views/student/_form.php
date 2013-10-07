@@ -112,7 +112,13 @@
 	</div>
     
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('common','Create') : Yii::t('common','Save')); ?>
+        <?php 
+        $url = $this->createUrl('delete', array('id' => $model->record_id));
+        if (!$model->isNewRecord && Admin::model()->isWDAdmin()) {
+            echo CHtml::linkButton(Yii::t('common','Delete'),array('href' => $url)); 
+        }
+        ?>
 	</div>
 
 <?php $this->endWidget(); ?>

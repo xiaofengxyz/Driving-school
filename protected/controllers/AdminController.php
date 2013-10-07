@@ -46,7 +46,7 @@ class AdminController extends Controller
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('view','list','create','update','admin','delete'),
 //				'users'=>array('admin'),
-                'expression'=>'yii::app()->admin->isWAdmin()',//具有超级管理员才可以
+                'expression'=>'yii::app()->admin->isSuperAdmin()',//具有超级管理员才可以
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -95,7 +95,7 @@ class AdminController extends Controller
 			$model->attributes=$_POST['Admin'];
             $model_has = Admin::model()->findByAttributes(array('admin_name'=>$model->admin_name));
             if(isset($model_has)) {
-                throw new CHttpException(404,'The peopele has existed.');
+                throw new CHttpException(404,Yii::t('common','The peopele has existed.'));
             }
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->admin_id));
@@ -188,7 +188,7 @@ class AdminController extends Controller
 	{
 		$model=Admin::model()->findByPk($id);
 		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
+			throw new CHttpException(404,Yii::t('common','The requested page does not exist.'));
 		return $model;
 	}
 
@@ -225,12 +225,14 @@ class AdminController extends Controller
 //                    array('label'=>'Delete Student', 'url'=>array('Delete')),
                 array('label'=>Yii::t('common','Manage Students'), 'url'=>$manage_student),
                 array('label'=>Yii::t('common','Backup StudentInfo'), 'url'=>$backup_info),
+                array('label'=>'------------------------------'),
 
                 array('label'=>Yii::t('common','List Admins'), 'url'=>array('list')),
                 array('label'=>Yii::t('common','Create Admin'), 'url'=>array('create')),
 //                    array('label'=>'Update Admin', 'url'=>array('Update')),
 //                    array('label'=>'Delete Admin', 'url'=>array('Delete')),
                 array('label'=>Yii::t('common','Manage Admins'), 'url'=>array('admin')),
+                array('label'=>'------------------------------'),
                 
                 array('label'=>Yii::t('common','Update Site Desc'), 'url'=>$update_sites),
                 array('label'=>Yii::t('common','View Site Desc'), 'url'=>$view_sites),
@@ -268,6 +270,7 @@ class AdminController extends Controller
             array('label'=>Yii::t('common','Create Student'), 'url'=>$create_student),
             array('label'=>Yii::t('common','Manage Students'), 'url'=>$manage_student),
             array('label'=>Yii::t('common','Backup StudentInfo'), 'url'=>$backup_info),
+            array('label'=>'------------------------------'),
         );
         return $menu_content;
     }
@@ -277,8 +280,9 @@ class AdminController extends Controller
         $update_sites = $this->createUrl('site/update');
         $view_sites = $this->createUrl('site/view');
         $menu_content = array(
-                array('label'=>Yii::t('common','Update Site Desc'), 'url'=>$update_sites),
-                array('label'=>Yii::t('common','View Site Desc'), 'url'=>$view_sites),
+            array('label'=>'------------------------------'),
+            array('label'=>Yii::t('common','Update Site Desc'), 'url'=>$update_sites),
+            array('label'=>Yii::t('common','View Site Desc'), 'url'=>$view_sites),
         );
         return $menu_content;
     }
