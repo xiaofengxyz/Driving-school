@@ -172,19 +172,19 @@ class StudentController extends Controller
 	 */
 	public function actionIndex()
 	{
-//		$dataProvider=new CActiveDataProvider('Student');
-//		$this->render('index',array(
-//			'dataProvider'=>$dataProvider,
-//		));
-        
-        $model=new Student('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Student']))
-			$model->attributes=$_GET['Student'];
-
+		$dataProvider=new CActiveDataProvider('Student');
 		$this->render('index',array(
-			'model'=>$model,
+			'dataProvider'=>$dataProvider,
 		));
+        
+//        $model=new Student('search');
+//		$model->unsetAttributes();  // clear any default values
+//		if(isset($_GET['Student']))
+//			$model->attributes=$_GET['Student'];
+//
+//		$this->render('index',array(
+//			'model'=>$model,
+//		));
 	}
 
 	/**
@@ -192,19 +192,19 @@ class StudentController extends Controller
 	 */
 	public function actionAdmin()
 	{
-//		$model=new Student('search');
-//		$model->unsetAttributes();  // clear any default values
-//		if(isset($_GET['Student']))
-//			$model->attributes=$_GET['Student'];
-//
-//		$this->render('admin',array(
-//			'model'=>$model,
-//		));
-        
-        $dataProvider=new CActiveDataProvider('Student');
+		$model=new Student('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Student']))
+			$model->attributes=$_GET['Student'];
+
 		$this->render('admin',array(
-			'dataProvider'=>$dataProvider,
+			'model'=>$model,
 		));
+        
+//        $dataProvider=new CActiveDataProvider('Student');
+//		$this->render('admin',array(
+//			'dataProvider'=>$dataProvider,
+//		));
 	}
 
 	/**
@@ -256,12 +256,12 @@ class StudentController extends Controller
 
         if (Admin::model()->isSuperAdmin()) {
             $menu_content = array(                   
-                array('label'=>Yii::t('common','List Students'), 'url'=>array('index')),
+//                array('label'=>Yii::t('common','List Students'), 'url'=>array('index')),
                 array('label'=>Yii::t('common','Create Student'), 'url'=>array('create')),
                 array('label'=>Yii::t('common','Backup StudentInfo'), 'url'=>$backup_info),
 //                    array('label'=>'Update Admin', 'url'=>array('Update')),
 //                    array('label'=>'Delete Admin', 'url'=>array('Delete')),
-//                    array('label'=>Yii::t('common','Manage Students'), 'url'=>array('admin')),
+                array('label'=>Yii::t('common','Manage Students'), 'url'=>array('admin')),
                 array('label'=>'------------------------------'),
 
                 array('label'=>Yii::t('common','Admins Home'), 'url'=>$index_admin),
@@ -273,17 +273,17 @@ class StudentController extends Controller
                 array('label'=>Yii::t('common','Update Site Desc'), 'url'=>$update_sites),
                 array('label'=>Yii::t('common','View Site Desc'), 'url'=>$view_sites),
             ); 
-        }elseif (Admin::model()->isWDAdmin()) {
+        }elseif (Admin::model()->isWAdmin()) {
             $menu_content = array(
-                array('label'=>Yii::t('common','List Students'), 'url'=>array('index')),
+//                array('label'=>Yii::t('common','List Students'), 'url'=>array('index')),
                 array('label'=>Yii::t('common','Create Student'), 'url'=>array('create')),
 //                    array('label'=>Yii::t('common','Update Student'), 'url'=>array('admin')),
 //                    array('label'=>Yii::t('common','Delete Student'), 'url'=>array('Delete')),
-//                    array('label'=>Yii::t('common','Manage Students'), 'url'=>array('admin')),
+                array('label'=>Yii::t('common','Manage Students'), 'url'=>array('admin')),
             );
         } else {
             $menu_content = array(
-                array('label'=>Yii::t('common','List Students'), 'url'=>array('index')),
+                array('label'=>Yii::t('common','Manage Students'), 'url'=>array('admin')),
             );                
         }
 
@@ -323,21 +323,12 @@ class StudentController extends Controller
                 array('label'=>Yii::t('common','Update Site Desc'), 'url'=>$update_sites),
                 array('label'=>Yii::t('common','View Site Desc'), 'url'=>$view_sites),
             ); 
-        }elseif (Admin::model()->isWDAdmin()) {
+        }else{
             $menu_content = array(
                 array('label'=>Yii::t('common','List Students'), 'url'=>array('index')),
 //                    array('label'=>Yii::t('common','Create Student'), 'url'=>array('create')),
-//                    array('label'=>Yii::t('common','Update Student'), 'url'=>array('admin')),
-//                    array('label'=>Yii::t('common','Delete Student'), 'url'=>array('Delete')),
                 array('label'=>Yii::t('common','Manage Students'), 'url'=>array('admin')),
             );
-        }elseif (Admin::model()->isWAdmin()) {
-            $menu_content = array(
-                array('label'=>Yii::t('common','List Students'), 'url'=>array('index')),
-//                    array('label'=>Yii::t('common','Create Student'), 'url'=>array('create')),
-            );
-        }else {
-            $menu_content = array();                
         }
 
         return $menu_content;
@@ -359,11 +350,11 @@ class StudentController extends Controller
 
         if (Admin::model()->isSuperAdmin()) {
             $menu_content = array(                   
-//                    array('label'=>Yii::t('common','List Students'), 'url'=>array('index')),
+                array('label'=>Yii::t('common','List Students'), 'url'=>array('index')),
                 array('label'=>Yii::t('common','Create Student'), 'url'=>array('create')),
 //                    array('label'=>Yii::t('common','Update Student'), 'url'=>array('Update')),
 //                    array('label'=>Yii::t('common','Delete Student'), 'url'=>array('Delete')),
-                array('label'=>Yii::t('common','Manage Students'), 'url'=>array('admin')),
+//                array('label'=>Yii::t('common','Manage Students'), 'url'=>array('admin')),
                 array('label'=>Yii::t('common','Backup StudentInfo'), 'url'=>$backup_info),
                 array('label'=>'------------------------------'),
 
@@ -376,23 +367,15 @@ class StudentController extends Controller
                 array('label'=>Yii::t('common','Update Site Desc'), 'url'=>$update_sites),
                 array('label'=>Yii::t('common','View Site Desc'), 'url'=>$view_sites),
             ); 
-        }elseif (Admin::model()->isWDAdmin()) {
-            $menu_content = array(
-//                    array('label'=>Yii::t('common','List Students'), 'url'=>array('index')),
-                array('label'=>Yii::t('common','Create Student'), 'url'=>array('create')),
-//                    array('label'=>Yii::t('common','Update Student'), 'url'=>array('admin')),
-//                    array('label'=>'Delete Students', 'url'=>array('Delete')),
-                array('label'=>Yii::t('common','Manage Students'), 'url'=>array('admin')),
-            );
         }elseif (Admin::model()->isWAdmin()) {
             $menu_content = array(
-//                    array('label'=>Yii::t('common','List Students'), 'url'=>array('index')),
+                array('label'=>Yii::t('common','List Students'), 'url'=>array('index')),
                 array('label'=>Yii::t('common','Create Student'), 'url'=>array('create')),
-                array('label'=>Yii::t('common','Manage Students'), 'url'=>array('admin')),
+//                array('label'=>Yii::t('common','Manage Students'), 'url'=>array('admin')),
             );
         }  else {
             $menu_content = array(
-                array('label'=>Yii::t('common','Manage Students'), 'url'=>array('admin')),
+                array('label'=>Yii::t('common','List Students'), 'url'=>array('index')),
             );                
         }
 
@@ -412,6 +395,7 @@ class StudentController extends Controller
         $manage_admin = $this->createUrl('admin/admin');
 
         $create_student_score = $this->createUrl('studentscore/create',array('id'=>$id));
+        $update_student_score = $this->createUrl('studentscore/update',array('id'=>$id));
         $manage_student_score = $this->createUrl('studentscore/admin',array('id'=>$id));
         $student_score = $this->createUrl('studentscore/view',array('id'=>$id));
         $backup_info = $this->createUrl('backup/BackupToExel');
@@ -426,9 +410,10 @@ class StudentController extends Controller
                 array('label'=>Yii::t('common','View Student'), 'url'=>array('view', 'id'=>$id)),
                 array('label'=>Yii::t('common','Manage Students'), 'url'=>array('admin')),
                 array('label'=>'------------------------------'),
-
-                array('label'=>Yii::t('common','Create Studentscore'), 'url'=>$create_student_score),
+                
                 array('label'=>Yii::t('common','View Studentscore'), 'url'=>$student_score),
+                array('label'=>Yii::t('common','Create Studentscore'), 'url'=>$create_student_score),
+                array('label'=>Yii::t('common','Update Studentscore'), 'url'=>$update_student_score),
                 array('label'=>Yii::t('common','Backup StudentInfo'), 'url'=>$backup_info),
                 array('label'=>'------------------------------'),
 
@@ -441,7 +426,7 @@ class StudentController extends Controller
                 array('label'=>Yii::t('common','Update Site Desc'), 'url'=>$update_sites),
                 array('label'=>Yii::t('common','View Site Desc'), 'url'=>$view_sites),
             ); 
-        }elseif (Admin::model()->isWDAdmin()) {
+        }elseif (Admin::model()->isWAdmin()) {
             $menu_content = array(
                 array('label'=>Yii::t('common','List Students'), 'url'=>array('index')),
                 array('label'=>Yii::t('common','Create Student'), 'url'=>array('create')),
@@ -450,16 +435,9 @@ class StudentController extends Controller
                 array('label'=>'------------------------------'),
 
                 array('label'=>Yii::t('common','View Studentscore'), 'url'=>$student_score),
+                array('label'=>Yii::t('common','Create Studentscore'), 'url'=>$create_student_score),
+                array('label'=>Yii::t('common','Update Studentscore'), 'url'=>$update_student_score),
                 array('label'=>Yii::t('common','Manage Studentscores'), 'url'=>$manage_student_score),
-            );
-        }elseif (Admin::model()->isWAdmin()) {
-            $menu_content = array(
-                array('label'=>Yii::t('common','List Students'), 'url'=>array('index')),
-                array('label'=>Yii::t('common','Create Student'), 'url'=>array('create')),
-                array('label'=>Yii::t('common','View Student'), 'url'=>array('view', 'id'=>$id)),
-                array('label'=>'------------------------------'),
-
-                array('label'=>Yii::t('common','View Studentscore'), 'url'=>$student_score),
             );
         }  else {
             $menu_content = array();                
@@ -481,6 +459,7 @@ class StudentController extends Controller
         $manage_admin = $this->createUrl('admin/admin');
 
         $create_student_score = $this->createUrl('studentscore/create',array('id'=>$id));
+        $update_student_score = $this->createUrl('studentscore/update',array('id'=>$id));
         $manage_student_score = $this->createUrl('studentscore/admin',array('id'=>$id));
         $student_score = $this->createUrl('studentscore/view',array('id'=>$id));
         $backup_info = $this->createUrl('backup/BackupToExel');
@@ -499,7 +478,9 @@ class StudentController extends Controller
                 
                 array('label'=>Yii::t('common','View Studentscore'), 'url'=>$student_score),
                 array('label'=>Yii::t('common','Create Studentscore'), 'url'=>$create_student_score),
+                array('label'=>Yii::t('common','Update Studentscore'), 'url'=>$update_student_score),
                 array('label'=>Yii::t('common','Manage Studentscores'), 'url'=>$manage_student_score),
+                
                 array('label'=>Yii::t('common','Backup StudentInfo'), 'url'=>$backup_info),
                 array('label'=>'------------------------------'),
 
@@ -521,24 +502,34 @@ class StudentController extends Controller
                 array('label'=>Yii::t('common','Manage Students'), 'url'=>array('admin')),
                 array('label'=>'------------------------------'),
 
-                array('label'=>Yii::t('common','Create Studentscore'), 'url'=>$create_student_score),
-                array('label'=>Yii::t('common','Manage Studentscores'), 'url'=>$manage_student_score),
                 array('label'=>Yii::t('common','View Studentscore'), 'url'=>$student_score),
+                array('label'=>Yii::t('common','Create Studentscore'), 'url'=>$create_student_score),
+                array('label'=>Yii::t('common','Update Studentscore'), 'url'=>$update_student_score),
+                array('label'=>Yii::t('common','Manage Studentscores'), 'url'=>$manage_student_score),
+                
             );
         }elseif (Admin::model()->isWAdmin()) {
             $menu_content = array(
                 array('label'=>Yii::t('common','List Students'), 'url'=>array('index')),
                 array('label'=>Yii::t('common','Create Student'), 'url'=>array('create')),
                 array('label'=>Yii::t('common','Update Student'), 'url'=>array('update', 'id'=>$id)),
+                array('label'=>Yii::t('common','Manage Students'), 'url'=>array('admin')),
                 array('label'=>'------------------------------'),
 
-                array('label'=>Yii::t('common','Create Studentscore'), 'url'=>$create_student_score),
-                array('label'=>Yii::t('common','Manage Studentscores'), 'url'=>$manage_student_score),
                 array('label'=>Yii::t('common','View Studentscore'), 'url'=>$student_score),
+                array('label'=>Yii::t('common','Create Studentscore'), 'url'=>$create_student_score),
+                array('label'=>Yii::t('common','Update Studentscore'), 'url'=>$update_student_score),
+                array('label'=>Yii::t('common','Manage Studentscores'), 'url'=>$manage_student_score),
+                
             );
         }  else {
             $menu_content = array(
+                array('label'=>Yii::t('common','List Students'), 'url'=>array('index')),
+                array('label'=>Yii::t('common','Manage Students'), 'url'=>array('admin')),
+                array('label'=>'------------------------------'),
+                
                 array('label'=>Yii::t('common','View Studentscore'), 'url'=>$student_score),
+                array('label'=>Yii::t('common','Manage Studentscores'), 'url'=>$manage_student_score),
                 
             );                
         }

@@ -256,7 +256,7 @@ class StudentscoreController extends Controller
                 array('label'=>Yii::t('common','Backup StudentInfo'), 'url'=>$backup_info),
                 array('label'=>'------------------------------'),
             ); 
-        }elseif (Admin::model()->isWDAdmin()) {
+        }elseif (Admin::model()->isWAdmin()) {
             $menu_content = array(
                 array('label'=>Yii::t('common','List Students'), 'url'=>$list_student),
                 array('label'=>Yii::t('common','View Student'), 'url'=>$view_student),
@@ -264,17 +264,11 @@ class StudentscoreController extends Controller
                 array('label'=>Yii::t('common','Manage Students'), 'url'=>$manage_student),
                 array('label'=>'------------------------------'),
             );
-        }elseif (Admin::model()->isWAdmin()) {
-            $menu_content = array(
-                array('label'=>Yii::t('common','List Students'), 'url'=>$list_student),
-                array('label'=>Yii::t('common','View Student'), 'url'=>$view_student),
-                array('label'=>Yii::t('common','Create Student'), 'url'=>$create_student),
-                array('label'=>'------------------------------'),
-            );
         }  else {
             $menu_content = array(
                 array('label'=>Yii::t('common','List Students'), 'url'=>$list_student),
                 array('label'=>Yii::t('common','View Student'), 'url'=>$view_student),
+                array('label'=>Yii::t('common','Manage Students'), 'url'=>$manage_student),
                 array('label'=>'------------------------------'),
             );                
         }
@@ -349,6 +343,7 @@ class StudentscoreController extends Controller
             );
         }  else {
             $menu_content = array(
+                array('label'=>Yii::t('common','View Studentscore'), 'url'=>array('view', 'id'=>$id)),
                 array('label'=>Yii::t('common','Manage Studentscores'), 'url'=>array('admin', 'id'=>$id)),
             );                
         }
@@ -373,6 +368,7 @@ class StudentscoreController extends Controller
             );
         }  else {
             $menu_content = array(
+                array('label'=>Yii::t('common','View Studentscore'), 'url'=>array('view', 'id'=>$id)),
                 array('label'=>Yii::t('common','Manage Studentscores'), 'url'=>array('admin', 'id'=>$id)),
             );                
         }
@@ -395,7 +391,9 @@ class StudentscoreController extends Controller
 
             );
         }  else {
-            $menu_content = array();                
+            $menu_content = array(
+                array('label'=>Yii::t('common','View Studentscore'), 'url'=>array('view', 'id'=>$id)),               
+            );                
         }
 
         return $menu_content;

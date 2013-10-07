@@ -3,19 +3,81 @@
 /* @var $model Student */
 
 $this->breadcrumbs=array(
-	Yii::t('common','Students'),
+	Yii::t('common','Students')=>array('index'),
 	Yii::t('common','Manage Students'),
 );
 
-$this->menu= $this->getIndexMenu();
+$this->menu=$this->getManageMenu();
 
+Yii::app()->clientScript->registerScript('search', "
+$('.search-button').click(function(){
+	$('.search-form').toggle();
+	return false;
+});
+$('.search-form form').submit(function(){
+	$('#student-grid').yiiGridView('update', {
+		data: $(this).serialize()
+	});
+	return false;
+});
+");
 ?>
 
 <h1><?php echo Yii::t('common','Manage Students'); ?></h1>
 
+<p>
+<?php echo Yii::t('yii','use comparison operatorsearch values'); ?>
+</p>
 
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
+<?php echo CHtml::link(Yii::t('common','Advanced Search'),'#',array('class'=>'search-button')); ?>
+<div class="search-form" style="display:none">
+<?php $this->renderPartial('_search',array(
+	'model'=>$model,
+)); ?>
+</div><!-- search-form -->
+
+<?php 
+$this->widget('zii.widgets.grid.CGridView', array(
+	'id'=>'student-grid',
+	'dataProvider'=>$model->search(),
+	'filter'=>$model,
+	'columns'=>array(
+		'record_id',
+		'username',
+        array(            // display 'sex' using an expression
+            'name'=>'sex',
+            'value'=>'Student::model()->getSex($data)',
+        ),
+        array(            // display 'apply_car_type' using an expression
+            'name'=>'apply_car_type',
+            'value'=>'Student::model()->getCarType($data)',
+        ),        
+		'personal_id',
+		'stdudent_id',
+		'phone',
+		/*'is_residence',
+		'address',
+		'enroll_date',
+		'record_date',
+		'is_pickup',
+		'pickup_date',
+		'is_submit',
+		'submit_date',
+		'is_add_car',
+		'origin_car_type',
+		*/
+		array(
+			'class'=>'CButtonColumn',
+            'buttons' => array(
+                 'delete' => array(
+                 'visible' => 'Admin::model()->isWDAdmin()',                   
+                ),
+                 'update' => array(
+                 'visible' => 'Admin::model()->isWAdmin()',                   
+                ),
+            ),
+            'template'=>'{view}{delete}{update}',
+		),
+	),
 )); ?>
 
